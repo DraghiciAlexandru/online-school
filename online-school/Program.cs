@@ -1,4 +1,6 @@
 ﻿using System;
+using online_school.Model;
+using online_school.Repo;
 
 namespace online_school
 {
@@ -6,6 +8,7 @@ namespace online_school
     {
         static void Main(string[] args)
         {
+            CourseRepo course = new CourseRepo();
 
         }
     }
