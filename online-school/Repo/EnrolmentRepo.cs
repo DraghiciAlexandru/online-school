@@ -7,7 +7,7 @@ using online_school.Model;
 
 namespace online_school.Repo
 {
-    class EnrolmentRepo
+    public class EnrolmentRepo
     {
         private readonly string connectionString;
 
@@ -70,13 +70,19 @@ namespace online_school.Repo
             db.SaveData(sql, new {id}, connectionString);
         }
 
-        public void updateStudentById(int id, string student_id)
+        public void deleteByDetails(int student_id, int course_id)
+        {
+            string sql = "delete from enrolment where student_id=@student_id && course_id=@course_id";
+            db.SaveData(sql, new {student_id, course_id}, connectionString);
+        }
+
+        public void updateStudentById(int id, int student_id)
         {
             string sql = "update enrolment set student_id = @sudent_id where id = @id";
 
             db.SaveData(sql, new {student_id, id}, connectionString);
         }
-        public void updateCourseById(int id, string course_id)
+        public void updateCourseById(int id, int course_id)
         {
             string sql = "update enrolment set course_id = @course_id where id = @id";
 

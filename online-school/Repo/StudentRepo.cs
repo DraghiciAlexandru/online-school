@@ -7,7 +7,7 @@ using online_school.Model;
 
 namespace online_school.Repo
 {
-    class StudentRepo
+    public class StudentRepo
     {
         private readonly string connectionString;
 
@@ -63,6 +63,12 @@ namespace online_school.Repo
             string sql = "delete from student where id = @id";
 
             db.SaveData(sql, new { id }, connectionString);
+        }
+
+        public void deleteByName(string last_name, string first_name)
+        {
+            string sql = "delete from student where last_name=@last_name && first_name=@first_name";
+            db.SaveData(sql, new {last_name, first_name}, connectionString);
         }
 
         public void updateFirst_NameById(int id, string first_name)

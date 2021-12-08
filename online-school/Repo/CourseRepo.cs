@@ -63,6 +63,13 @@ namespace online_school.Repo
             db.SaveData(sql, new { id }, connectionString);
         }
 
+        public void deleteByName(string name)
+        {
+            string sql = "delete from course where name = @name";
+
+            db.SaveData(sql, new {name}, connectionString);
+        }
+
         public void updateNameById(int id, string name)
         {
             string sql = "update course set name = @name where id = @id";
@@ -70,7 +77,7 @@ namespace online_school.Repo
             db.SaveData(sql, new {name, id}, connectionString);
         }
 
-        public void updateDepById(int id, int department)
+        public void updateDepById(int id, string department)
         {
             string sql = "update course set department=@department where id=@id";
 
