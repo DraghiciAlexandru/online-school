@@ -42,7 +42,7 @@ namespace online_school.Model
         public override bool Equals(object? obj)
         {
             Course other=obj as Course;
-            if (this.id == other.id)
+            if (this.id == other.id || this.name == other.name) 
                 return true;
             return false;
         }

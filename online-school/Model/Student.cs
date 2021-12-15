@@ -56,7 +56,8 @@ namespace online_school.Model
         public override bool Equals(object? obj)
         {
             Student other=obj as Student;
-            if (this.id == other.id)
+            if ((this.id == other.id) || (this.first_name == other.first_name && this.last_name == other.last_name) ||
+                (this.email == other.email))  
                 return true;
             return false;
         }
