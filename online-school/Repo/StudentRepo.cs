@@ -34,9 +34,9 @@ namespace online_school.Repo
 
         public void create(Student student)
         {
-            string sql = "insert into student (first_name, last_name, email, age) values (@first_name, @last_name, @email, @age);";
+            string sql = "insert into student (first_name, last_name, email, age) values (@first_name, @last_name, @email, @age, @password);";
 
-            db.SaveData(sql, new {student.First_name, student.Last_name, student.Email, student.Age}, connectionString);
+            db.SaveData(sql, new {student.First_name, student.Last_name, student.Email, student.Age, student.Password}, connectionString);
         }
 
         public Student getByName(string last_name, string first_name)
@@ -56,6 +56,14 @@ namespace online_school.Repo
             if (db.LoadData<Student, dynamic>(sql, new { id }, connectionString).Count == 0)
                 return null;
             return db.LoadData<Student, dynamic>(sql, new { id }, connectionString)[0];
+        }
+
+        public Student getByEmail(String email)
+        {
+            string sql = "select * from student where email = @email";
+            if (db.LoadData<Student, dynamic>(sql, new {email}, connectionString).Count == 0) 
+                return null;
+            return db.LoadData<Student, dynamic>(sql, new {email}, connectionString)[0];
         }
 
         public void deleteById(int id)

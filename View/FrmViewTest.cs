@@ -13,14 +13,16 @@ namespace View
     {
         private Panel Header;
         private Panel Aside;
-        private FlowLayoutPanel Main;
+        private Panel Main;
+
+        private FlowLayoutPanel Content;
 
         public FrmViewTest()
         {
             Header = new Panel();
             Aside = new Panel();
-            Main = new FlowLayoutPanel();
-
+            Main = new Panel();
+            Content = new FlowLayoutPanel();
 
             layout();
         }
@@ -39,7 +41,9 @@ namespace View
             
 
             setHeader(Header);
+            setAside(Aside);
             setMain(Main);
+            setPanelContent(Content);
         }
 
         public void setHeader(Panel header)
@@ -70,27 +74,80 @@ namespace View
             this.Close();
         }
 
+        private void setAside(Panel aside)
+        {
+            aside.Size = new Size(300, 945);
+            aside.Location = new Point(0, 75);
+            aside.BackColor = Color.FromArgb(35, 39, 42);
+            aside.Font = new Font("Microsoft Sans Serif", 16, FontStyle.Bold);
+
+            setBtnMyCourses(aside);
+
+            this.Controls.Add(aside);
+        }
+
         private void setMain(Panel main)
         {
-            main.Location = new Point(0, 75);
-            main.Size = new Size(1920, 945);
+            main.Location = new Point(300, 75);
+            main.Size = new Size(1620, 945);
             main.Padding = new Padding(50);
-
-            loadCourses(main);
+            
 
             this.Controls.Add(main);
         }
 
-        private void loadCourses(Panel main)
+        private void setPanelContent(FlowLayoutPanel content)
+        {
+            content.Size = Main.Size;
+            content.Location = new Point(0, 0);
+            content.Visible = false;
+            content.BackColor = Color.FromArgb(44, 47, 51);
+
+            Main.Controls.Add(content);
+        }
+
+        private void setBtnMyCourses(Panel aside)
+        {
+            Button btnMyCourses = new Button();
+            btnMyCourses.Name = "btnMyCourses";
+            btnMyCourses.FlatStyle = FlatStyle.Flat;
+            btnMyCourses.FlatAppearance.BorderSize = 0;
+            btnMyCourses.Location = new Point(0, 0);
+            btnMyCourses.Size = new Size(300, 100);
+
+            btnMyCourses.Text = "My Courses";
+            btnMyCourses.ForeColor = Color.White;
+
+            btnMyCourses.Click += BtnMyCourses_Click;
+
+            aside.Controls.Add(btnMyCourses);
+        }
+
+        private void BtnMyCourses_Click(object sender, EventArgs e)
+        {
+            loadCourses(Content);
+            Content.Visible = true;
+        }
+
+        private void loadCourses(FlowLayoutPanel flow)
         {
             CourseServices courseServices = new CourseServices();
+            EnrolmentServices enrolmentServices = new EnrolmentServices();
 
             List<Course> courses = courseServices.getAll();
 
             foreach(Course x in courses)
             {
-                CardTest cardTest = new CardTest(x);
-                main.Controls.Add(cardTest);
+                CardCourse cardTest = new CardCourse(x);
+                try
+                {
+                    //cardTest.LblNrPers.Text += enrolmentServices.getByCourse(x.Id).Count.ToString();
+                }
+                catch
+                {
+                    //cardTest.LblNrPers.Text += "0";
+                }
+                flow.Controls.Add(cardTest);
             }
         }
     }

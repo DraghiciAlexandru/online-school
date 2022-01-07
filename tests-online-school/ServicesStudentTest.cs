@@ -18,7 +18,7 @@ namespace tests_online_school
         [Fact]
         public void create()
         {
-            Student student = new Student("Alex", "Draghici", "alexdraghici2104@gmail.com", 0);
+            Student student = new Student("Alex", "Draghici", "alexdraghici2104@gmail.com", 0, "pass");
 
             Assert.Equal("Student already exists",
                 Assert.Throws<CourseEnroledExeception>(() => studentServices.create(student)).Message);

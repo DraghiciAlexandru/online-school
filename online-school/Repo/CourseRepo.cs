@@ -32,6 +32,20 @@ namespace online_school.Repo
             return db.LoadData<Course, dynamic>(sql, new { }, connectionString);
         }
 
+        public List<Course> getDepartment(String department)
+        {
+            string sql = "SELECT * FROM course where department=@department";
+
+            return db.LoadData<Course, dynamic>(sql, new {department}, connectionString);
+        }
+
+        public List<String> getAllDepartments()
+        {
+            string sql = "SELECT DISTINCT department FROM course";
+
+            return db.LoadData<String, dynamic>(sql, new { }, connectionString);
+        }
+
         public void create(Course course)
         {
             string sql = "insert into course (name, department) values (@name, @department);";

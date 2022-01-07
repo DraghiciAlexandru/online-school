@@ -114,5 +114,15 @@ namespace online_school.Services
                 throw new CourseEnroledExeception("Invalid data");
             }
         }
+
+        public List<String> getAllDepartments()
+        {
+            return courseRepo.getAllDepartments();
+        }
+
+        public List<Course> getDepartment(String department)
+        {
+            return courseRepo.getDepartment(department);
+        }
     }
 }

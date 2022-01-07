@@ -22,7 +22,7 @@ namespace tests_online_school
 
             for (int i = x; i < 100; i++)
             {
-                studentRepo.create(new Student(i.ToString(), i.ToString(), "e", 1));
+                studentRepo.create(new Student(i.ToString(), i.ToString(), "e", 1, "non"));
             }
 
             Assert.Equal(100, studentRepo.getAll().Count);

@@ -5,8 +5,26 @@
     <Compile Update="FrmViewTest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Template\CardTest.cs">
+    <Compile Update="Template\CardDepartment.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Template\CardCourse.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Template\ViewAllCourses.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Template\ViewDetails.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Template\ViewMyCourses.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Template\ViewLogin.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="View\FrmViewStudent.cs">
+      <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
 </Project>

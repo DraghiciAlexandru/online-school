@@ -38,6 +38,11 @@ namespace online_school.Services
             return enrolments;
         }
 
+        public Enrolment isEnrolled(int student_id, int course_id)
+        {
+            return enrolmentRepo.isEnrolled(student_id, course_id);
+        }
+
         public void deletebyDetails(Enrolment enrolment)
         {
             if (enrolment.Id > 0 && enrolment.Student_id > 0 && enrolment.Course_id > 0)

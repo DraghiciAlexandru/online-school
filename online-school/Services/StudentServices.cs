@@ -13,6 +13,8 @@ namespace online_school.Services
     {
         private StudentRepo studentRepo;
 
+        public static Student loged;
+
         private List<Student> students;
         public StudentServices()
         {
@@ -41,7 +43,7 @@ namespace online_school.Services
 
         public Student getByName(string last_name, string first_name)
         {
-            if (students.Contains(new Student(first_name, last_name, "email@gmail.com", 0)))
+            if (students.Contains(new Student(first_name, last_name, "email@gmail.com", 0, "pass"))) 
             {
                 return studentRepo.getByName(last_name, first_name);
             }
@@ -63,6 +65,11 @@ namespace online_school.Services
             }
         }
 
+        public Student getByEmail(String email)
+        {
+            return studentRepo.getByEmail(email);
+        }
+
         public void deleteById(int id)
         {
             if (id >= 1)
@@ -79,7 +86,7 @@ namespace online_school.Services
         {
             if (last_name.Trim(' ').Length > 0 && first_name.Trim(' ').Length > 0)
             {
-                if (students.Contains(new Student(first_name, last_name, "email@gmail.com", 0)))
+                if (students.Contains(new Student(first_name, last_name, "email@gmail.com", 0, "pass"))) 
                     studentRepo.deleteByName(last_name, first_name);
                 else
                 {
@@ -157,5 +164,7 @@ namespace online_school.Services
                 throw new CourseEnroledExeception("Invalid data");
             }
         }
+
+
     }
 }

@@ -63,6 +63,14 @@ namespace online_school.Repo
             return db.LoadData<Enrolment, dynamic>(sql, new {course_id}, connectionString);
         }
 
+        public Enrolment isEnrolled(int student_id, int course_id)
+        {
+            string sql = "select * from enrolment where student_id=@student_id && course_id=@course_id";
+            if (db.LoadData<Enrolment, dynamic>(sql, new { student_id, course_id }, connectionString).Count == 0)
+                return null;
+            return db.LoadData<Enrolment, dynamic>(sql, new {student_id, course_id}, connectionString)[0];
+        }
+
         public void deleteById(int id)
         {
             string sql = "delete from enrolment where id = @id";
