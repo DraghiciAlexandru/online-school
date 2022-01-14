@@ -39,6 +39,13 @@ namespace online_school.Repo
             return db.LoadData<Course, dynamic>(sql, new {department}, connectionString);
         }
 
+        public List<Course> getByProfessor(int professor_id)
+        {
+            string sql = "SELECT * FROM course where professor_id=@professor_id";
+
+            return db.LoadData<Course, dynamic>(sql, new {professor_id}, connectionString);
+        }
+
         public List<String> getAllDepartments()
         {
             string sql = "SELECT DISTINCT department FROM course";
@@ -48,9 +55,9 @@ namespace online_school.Repo
 
         public void create(Course course)
         {
-            string sql = "insert into course (name, department) values (@name, @department);";
+            string sql = "insert into course (name, department, description, professor_id) values (@name, @department, @description, @professor_id);";
 
-            db.SaveData(sql, new {course.Name, course.Department}, connectionString);
+            db.SaveData(sql, new {course.Name, course.Department, course.Description, course.Profesor_id}, connectionString);
         }
 
         public Course getByName(string name)
@@ -96,6 +103,13 @@ namespace online_school.Repo
             string sql = "update course set department=@department where id=@id";
 
             db.SaveData(sql, new { department, id }, connectionString);
+        }
+
+        public void updateDescription(int id, String description)
+        {
+            string sql = "update course set description=@description where id=@id";
+
+            db.SaveData(sql, new {description, id}, connectionString);
         }
     }
 }

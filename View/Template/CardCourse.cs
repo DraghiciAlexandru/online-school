@@ -17,6 +17,12 @@ namespace View.Template
             get { return course; }
         }
 
+        public Label LblNume
+        {
+            get { return lblNume; }
+            set { lblNume = value; }
+        }
+
         public CardCourse(Course course)
         {
             this.course = course;

@@ -45,7 +45,7 @@ namespace online_school.Services
 
         public void deletebyDetails(Enrolment enrolment)
         {
-            if (enrolment.Id > 0 && enrolment.Student_id > 0 && enrolment.Course_id > 0)
+            if (enrolment.Student_id > 0 && enrolment.Course_id > 0)
             {
                 if (enrolments.Contains(enrolment))
                 {

@@ -23,6 +23,9 @@
     <Compile Update="Template\ViewLogin.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Template\ViewProfessorProfile.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="View\FrmViewStudent.cs">
       <SubType>Form</SubType>
     </Compile>

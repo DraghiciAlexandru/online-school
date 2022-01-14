@@ -53,8 +53,18 @@ namespace View.Template
                 CardCourse cardTest = new CardCourse(courseServices.getById(x.Course_id));
                 cardTest.Margin = new Padding(10);
                 cardTest.Click += CardTest_Click;
+                cardTest.LblNume.Click += LblNume_Click;
                 flow.Controls.Add(cardTest);
             }
+        }
+
+        private void LblNume_Click(object sender, EventArgs e)
+        {
+            Label lbl = sender as Label;
+            CardCourse card = lbl.Parent as CardCourse;
+            ViewDetails view = new ViewDetails(card.Course);
+            this.Controls.Clear();
+            this.Controls.Add(view);
         }
 
         private void CardTest_Click(object sender, EventArgs e)

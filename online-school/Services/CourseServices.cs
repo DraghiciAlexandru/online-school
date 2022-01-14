@@ -42,7 +42,7 @@ namespace online_school.Services
         {
             if (name.Trim(' ').Length > 0)
             {
-                if (courses.Contains(new Course(name, "dep")))
+                if (courses.Contains(new Course(name, "dep", "des", 1))) 
                     return courseRepo.getByName(name);
                 else
                 {
@@ -65,6 +65,21 @@ namespace online_school.Services
             {
                 throw new CourseEnroledExeception("Invalid course id");
             }
+        }
+
+        public List<String> getAllDepartments()
+        {
+            return courseRepo.getAllDepartments();
+        }
+
+        public List<Course> getDepartment(String department)
+        {
+            return courseRepo.getDepartment(department);
+        }
+
+        public List<Course> getByProfessor(int professor_id)
+        {
+            return courseRepo.getByProfessor(professor_id);
         }
 
         public void deleteById(int id)
@@ -115,14 +130,16 @@ namespace online_school.Services
             }
         }
 
-        public List<String> getAllDepartments()
+        public void updateDescription(int id, String description)
         {
-            return courseRepo.getAllDepartments();
-        }
-
-        public List<Course> getDepartment(String department)
-        {
-            return courseRepo.getDepartment(department);
+            if (id > 0 && description.Trim(' ').Length > 0)
+            {
+                courseRepo.updateDescription(id, description);
+            }
+            else
+            {
+                throw new CourseEnroledExeception("Invalid data");
+            }
         }
     }
 }

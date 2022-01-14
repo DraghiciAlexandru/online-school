@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using online_school.Model;
@@ -10,9 +11,10 @@ namespace View.Template
 {
     public class ViewDetails : Panel
     {
-        private StudentServices studentServices;
+        private ProfessorServices professorServices;
         private EnrolmentServices enrolmentServices;
         private Course course;
+        private Professor professor;
         private Button btnAttendCourse;
         private Button btnCancelCourse;
 
@@ -31,9 +33,10 @@ namespace View.Template
 
         public ViewDetails(Course course)
         {
-            studentServices = new StudentServices();
+            professorServices = new ProfessorServices();
             enrolmentServices = new EnrolmentServices();
             this.course = course;
+            this.professor = professorServices.getById(course.Profesor_id);
 
             layout();
         }
@@ -47,6 +50,9 @@ namespace View.Template
             setAttendCourse();
             setCancelCourse();
             setCourseName();
+            setProfessorName();
+            setDescription();
+            setCourseImage();
         }
 
         private void setAttendCourse()
@@ -73,7 +79,17 @@ namespace View.Template
                     btnAttendCourse.Enabled = false;
             }
 
+            btnAttendCourse.Click += BtnAttendCourse_Click;
+
             Controls.Add(btnAttendCourse);
+        }
+
+        private void BtnAttendCourse_Click(object sender, EventArgs e)
+        {
+            enrolmentServices.create(new Enrolment(StudentServices.loged.Id, course.Id, DateTime.Now));
+            btnCancelCourse.Enabled = true;
+            btnAttendCourse.Enabled = false;
+            enrolmentServices = new EnrolmentServices();
         }
 
         private void setCancelCourse()
@@ -100,7 +116,17 @@ namespace View.Template
                     btnCancelCourse.Enabled = false;
             }
 
+            btnCancelCourse.Click += BtnCancelCourse_Click;
+
             Controls.Add(btnCancelCourse);
+        }
+
+        private void BtnCancelCourse_Click(object sender, EventArgs e)
+        {
+            enrolmentServices.deletebyDetails(new Enrolment(StudentServices.loged.Id, course.Id, DateTime.Now));
+            btnCancelCourse.Enabled = false;
+            btnAttendCourse.Enabled = true;
+            enrolmentServices = new EnrolmentServices();
         }
 
         private void setCourseName()
@@ -110,12 +136,68 @@ namespace View.Template
             lblTitlu.AutoSize = false;
             lblTitlu.Size = new Size(500, 70);
             lblTitlu.Text = course.Name;
-            lblTitlu.Location = new Point(30, 250);
+            lblTitlu.Location = new Point(30, 150);
 
             lblTitlu.Font = new Font("Microsoft Sans Serif", 24, FontStyle.Regular);
             lblTitlu.ForeColor = Color.FromArgb(114, 137, 218);
 
             Controls.Add(lblTitlu);
+        }
+
+        private void setProfessorName()
+        {
+            Label lblProf = new Label();
+
+            lblProf.AutoSize = false;
+            lblProf.Size = new Size(500, 70);
+            lblProf.Text = "Professor: " + professor.Name;
+            lblProf.Location = new Point(30, 230);
+
+            lblProf.Font = new Font("Microsoft Sans Serif", 16, FontStyle.Regular);
+            lblProf.ForeColor = Color.FromArgb(114, 137, 218);
+
+            lblProf.Click += LblProf_Click;
+
+            Controls.Add(lblProf);
+        }
+
+        private void LblProf_Click(object sender, EventArgs e)
+        {
+            ViewProfessorProfile view = new ViewProfessorProfile(professor);
+            this.Parent.Controls.Add(view);
+            this.Parent.Controls.Remove(this);
+        }
+
+        private void setDescription()
+        {
+            Label lblDescriere = new Label();
+
+            lblDescriere.AutoSize = false;
+            lblDescriere.Size = new Size(1560, 700);
+            lblDescriere.Text = "Course description:" + Environment.NewLine + Environment.NewLine;
+            lblDescriere.Text += course.Description;
+            lblDescriere.Location = new Point(30, 300);
+
+            lblDescriere.Font = new Font("Microsoft Sans Serif", 14, FontStyle.Regular);
+            lblDescriere.ForeColor = Color.White;
+
+            Controls.Add(lblDescriere);
+        }
+
+        private void setCourseImage()
+        {
+            PictureBox pic = new PictureBox();
+            pic.Size = new Size(500, 300);
+            pic.Location = new Point(1000, 30);
+
+
+            PhotosServices photosServices = new PhotosServices();
+            MemoryStream m = new MemoryStream(photosServices.getByCourseId(course.Id).Image);
+
+            pic.BackgroundImage = Image.FromStream(m);
+            pic.BackgroundImageLayout = ImageLayout.Stretch;
+
+            Controls.Add(pic);
         }
     }
 }

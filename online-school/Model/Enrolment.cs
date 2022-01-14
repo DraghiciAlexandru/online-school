@@ -49,7 +49,7 @@ namespace online_school.Model
         public override bool Equals(object? obj)
         {
             Enrolment other = obj as Enrolment;
-            if ((this.student_id == other.student_id && this.course_id == other.course_id))  
+            if ((this.id == other.id) || (this.student_id == other.student_id && this.course_id == other.course_id)) 
                 return true;
             return false;
         }

@@ -61,9 +61,19 @@ namespace View.Template
             {
                 CardCourse cardTest = new CardCourse(x);
                 cardTest.Click += CardTest_Click;
+                cardTest.LblNume.Click += LblNume_Click;
                 cardTest.Margin = new Padding(10);
                 flow.Controls.Add(cardTest);
             }
+        }
+
+        private void LblNume_Click(object sender, EventArgs e)
+        {
+            Label lbl = sender as Label;
+            CardCourse card = lbl.Parent as CardCourse;
+            ViewDetails view = new ViewDetails(card.Course);
+            this.Controls.Clear();
+            this.Controls.Add(view);
         }
 
         private void CardTest_Click(object sender, EventArgs e)
@@ -73,5 +83,6 @@ namespace View.Template
             this.Controls.Clear();
             this.Controls.Add(view);
         }
+
     }
 }
